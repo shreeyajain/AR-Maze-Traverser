@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class LoadMaze : MonoBehaviour
 {
     public TextAsset jsonFile;
+    public GameObject workspace;
 
     public UnityEngine.Object mazePrefab;
     public UnityEngine.Object startPrefab;
@@ -25,25 +26,29 @@ public class LoadMaze : MonoBehaviour
             {
                 Vector3 pos = new Vector3(obj.position.x/10.0f, obj.position.y/10.0f, obj.position.z/10.0f);
                 Vector3 angles = new Vector3(obj.rotation.x, obj.rotation.y, obj.rotation.z);
-                Instantiate(mazePrefab, pos, Quaternion.Euler(angles));
+                GameObject maze = (GameObject) Instantiate(mazePrefab, pos, Quaternion.Euler(angles));
+                maze.transform.parent = workspace.transform;
             }
             else if (obj.prefabType == "fence")
             {
                 Vector3 pos = new Vector3(obj.position.x/10.0f, obj.position.y/10.0f, obj.position.z/10.0f);
                 Vector3 angles = new Vector3(obj.rotation.x, obj.rotation.y, obj.rotation.z);
-                Instantiate(fencePrefab, pos, Quaternion.Euler(angles));
+                GameObject fence = (GameObject) Instantiate(fencePrefab, pos, Quaternion.Euler(angles));
+                fence.transform.parent = workspace.transform;
             }
             else if (obj.prefabType == "start")
             {
                 Vector3 pos = new Vector3(obj.position.x/10.0f, obj.position.y/10.0f, obj.position.z/10.0f);
                 Vector3 angles = new Vector3(obj.rotation.x, obj.rotation.y, obj.rotation.z);
-                Instantiate(startPrefab, pos, Quaternion.Euler(angles));
+                GameObject start = (GameObject) Instantiate(startPrefab, pos, Quaternion.Euler(angles));
+                start.transform.parent = workspace.transform;
             }
             else if (obj.prefabType == "end")
             {
                 Vector3 pos = new Vector3(obj.position.x/10.0f, obj.position.y/10.0f, obj.position.z/10.0f);
                 Vector3 angles = new Vector3(obj.rotation.x, obj.rotation.y, obj.rotation.z);
-                Instantiate(endPrefab, pos, Quaternion.Euler(angles));
+                GameObject end = (GameObject) Instantiate(endPrefab, pos, Quaternion.Euler(angles));
+                end.transform.parent = workspace.transform;
             }
         }
     }
