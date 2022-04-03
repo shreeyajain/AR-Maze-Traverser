@@ -8,6 +8,7 @@ TagManager:
   - fence
   - start
   - end
+  - floor
   layers:
   - Default
   - TransparentFX
