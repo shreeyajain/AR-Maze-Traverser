@@ -1,0 +1,14 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Maze-Traverser.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  m_configObjects:
+    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 92ff804eeb505455e86d0b6cd904dca3, type: 2}
+    UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: beb49f93e46904c33b8b19efed37f9fc, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 22c2239bb30bd441fbd38095d787bcb5, type: 2}
