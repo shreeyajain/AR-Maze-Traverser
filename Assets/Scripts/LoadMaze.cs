@@ -13,6 +13,7 @@ public class LoadMaze : MonoBehaviour
     public UnityEngine.Object startPrefab;
     public UnityEngine.Object endPrefab;
     public UnityEngine.Object fencePrefab;
+    public UnityEngine.Object playerPrefab;
 
     private JSONData data = new JSONData();
 
@@ -42,6 +43,15 @@ public class LoadMaze : MonoBehaviour
                 Vector3 angles = new Vector3(obj.rotation.x, obj.rotation.y, obj.rotation.z);
                 GameObject start = (GameObject) Instantiate(startPrefab, pos, Quaternion.Euler(angles));
                 start.transform.parent = workspace.transform;
+
+                Vector3 startingPos = new Vector3(start.transform.position.x, 0.0f, start.transform.position.z);
+                GameObject player = (GameObject) Instantiate(playerPrefab, startingPos, start.transform.rotation);
+                player.transform.position += transform.TransformDirection(Vector3.forward * 0.15f);
+                player.transform.parent = workspace.transform;
+                for (int j = 0; j < player.transform.childCount; j++)
+                {
+                    player.transform.GetChild(j).gameObject.SetActive(false);
+                }
             }
             else if (obj.prefabType == "end")
             {

@@ -44,6 +44,7 @@ public class TransformMaze : MonoBehaviour
                 canvas = GameObject.Find("Canvas");
                 canvas.transform.GetChild(0).gameObject.SetActive(true);
                 canvas.transform.GetChild(2).gameObject.SetActive(true);
+                canvas.transform.GetChild(3).gameObject.SetActive(true);
             }
         }
     }
