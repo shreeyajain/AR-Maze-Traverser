@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,11 +14,15 @@ public class PlayerController : MonoBehaviour
     private bool started;
     private GameObject canvas;
 
+    public Text timeText;
+    private float timer;
+
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindWithTag("Player");
         started = false;
+        timer = 0.0f;
     }
 
     // Update is called once per frame
@@ -27,6 +33,14 @@ public class PlayerController : MonoBehaviour
 
         if (started)
         {
+            // Keep track of the timer
+            IncreaseTimer();
+            int seconds = (int)Math.Round(timer, 0);
+            if (seconds%60 < 10)
+                timeText.text = "Time " + seconds/60 + ":0" + seconds%60;
+            else
+                timeText.text = "Time " + seconds/60 + ":" + seconds%60;
+
             if (Input.touchCount > 0)
             {
                 touch = Input.GetTouch(0);
@@ -49,6 +63,7 @@ public class PlayerController : MonoBehaviour
                         }
                         else if (hit.transform.gameObject.CompareTag("end"))
                         {
+                            started = false;
                             // Set canvas active again but do not show any of the previous UI buttons
                             canvas.SetActive(true);
                             canvas.transform.GetChild(0).gameObject.SetActive(false);
@@ -56,6 +71,7 @@ public class PlayerController : MonoBehaviour
                             canvas.transform.GetChild(2).gameObject.SetActive(false);
                             canvas.transform.GetChild(3).gameObject.SetActive(false);
                             canvas.transform.GetChild(4).gameObject.SetActive(true);
+                            canvas.transform.GetChild(5).gameObject.SetActive(true);
                         }
                     }
                 } 
@@ -75,7 +91,12 @@ public class PlayerController : MonoBehaviour
 
         started = true;
         canvas = GameObject.Find("Canvas");
-        canvas.SetActive(false);
+        canvas.transform.GetChild(0).gameObject.SetActive(false);
+        canvas.transform.GetChild(1).gameObject.SetActive(false);
+        canvas.transform.GetChild(2).gameObject.SetActive(false);
+        canvas.transform.GetChild(3).gameObject.SetActive(false);
+        canvas.transform.GetChild(4).gameObject.SetActive(false);
+        canvas.transform.GetChild(5).gameObject.SetActive(true);
     }
 
     public void OnReloadButtonPress()
@@ -95,5 +116,15 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Restart button pressed");
         player.transform.position = playerInitPos;
         player.transform.rotation = playerInitRot;
+
+        started = true;
+        timer = 0.0f;
+        canvas.transform.GetChild(4).gameObject.SetActive(false);
+    }
+
+    // Custom function to increase game time
+    public void IncreaseTimer()
+    {
+        timer += Time.deltaTime;
     }
 }
